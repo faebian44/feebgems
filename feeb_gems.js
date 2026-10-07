@@ -19,11 +19,11 @@ elements.clay_soil.reactions.chromite = {
 elements.molten_aluminum.reactions.oxygen = {elem1:"molten_alumina", elem2:null, chance: 0.1}
 if (!elements.limestone.reactions) elements.limestone.reactions = {};
 elements.limestone.reactions.steam = { elem1:"fluorite", elem2:null, chance:0.0005, tempMin:150, tempMax:500 };
-elements.rock.reactions.fluorine = { elem1:"topaz", elem2:null, chance:0.0005, tempMin:500, tempMax:900 }; 
 
 elements.molten_thermite.burnInto = ["molten_iron","molten_alumina"]
  
 elements.porcelain_shard.breakInto = ["alumina", "alumina", "glass_shard"]
+if (!elements.porcelain_shard.reactions) elements.porcelain_shard.reactions = {};
 elements.porcelain_shard.reactions.molten_slag = {elem1:"molten_slag"} 
 
 elements.clay_soil.stateHigh = ["molten_brick"]
@@ -35,8 +35,6 @@ elements.magma.stateLow = [
   ...Array(2).fill("fluorite"),
   "beryl"
 ];
- 
-elements.midas_touch.ignore = ["money"]
  
 var acidProof = [
   "ruby", "sapphire", "corundum", "padparadscha",
@@ -163,7 +161,7 @@ elements.alumina = {
     tempHigh: 2050,
     stateHigh: ["molten_alumina"],
     reactions: {
-       "fluorine": { elem1:"topaz", elem2:null, chance:0.005, tempMin:600, tempMax:1000},
+       "fluorite": { elem1:"topaz", elem2:null, chance:0.005, tempMin:600, tempMax:1000},
   },
 }
  
@@ -375,7 +373,6 @@ elements.money={
     state: "solid",
     density: 1201,
     tempHigh: 1085,
-    ignore: ["midas_touch"],
     stateHigh: ["ash", "fire", "smoke"],
     burn: 0.12,
     burnTime: 120,
