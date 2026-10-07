@@ -1,3 +1,5 @@
+try {
+
 elements.copper.breakInto = ["copper_coin"]
 elements.silver.breakInto = ["silver_coin"]
  
@@ -382,3 +384,5 @@ elements.money={
         "termite": {elem1:null, chance: 0.05},
     }
 }
+
+} catch (e) { alert("feeb_gems error: " + e.message + "\n" + e.stack); }
