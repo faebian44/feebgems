@@ -53,7 +53,7 @@ elements.ruby = {
     behavior: behaviors.POWDER,
     category: "powders",
     state: "solid",
-    density: 4000 
+    density: 4000,
     tempHigh: 2050,
     stateHigh: ["molten_alumina"],
     breakInto:["alumina"],
