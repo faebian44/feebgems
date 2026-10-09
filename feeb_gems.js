@@ -31,13 +31,23 @@ for (var key in elements) {
   var r = elements[key].reactions;
   if (r && r.limestone && r.limestone.elem2 === "wet_sand") delete r.limestone;
 }
-elements.basalt.reactions.water = {elem2: [...Array(8).fill("quartz"), "amethyst", "pyrolusite"], chance: 0.0002, tempMin: 55, tempMax: 100};
+elements.basalt.reactions.water = {elem2: [...Array(28).fill("quartz"), ...Array(4).fill("amethyst"), ...Array(4).fill("pyrolusite"), "citrine"], chance: 0.0002, tempMin: 55, tempMax: 100};
 
 elements.molten_thermite.burnInto = ["molten_iron","molten_alumina"]
  
 elements.porcelain_shard.breakInto = ["alumina", "alumina", "glass_shard"]
 if (!elements.porcelain_shard.reactions) elements.porcelain_shard.reactions = {};
 elements.porcelain_shard.reactions.molten_slag = {elem1:"molten_slag"} 
+elements.clay.tempHigh = 600
+elements.porcelain.tempHigh = 1850;
+elements.porcelain.stateHigh = ["molten_glass", "molten_glass", "corundum"];
+elements.porcelain_shard.tempHigh = 1850;
+elements.porcelain_shard.stateHigh = ["molten_glass", "molten_glass", "corundum"];
+if (!elements.clay_shard.reactions) elements.clay_shard.reactions = {};
+elements.clay_shard.reactions.water = { elem1:"clay_soil", chance:0.0002 };
+elements.clay_shard.reactions.molten_slag = {elem1:"molten_slag"} 
+if (!elements.baked_clay.reactions) elements.baked_clay.reactions = {};
+elements.baked_clay.reactions.water = { elem1:"clay_shard", elem2:"steam", chance:0.6, tempMin:300 };
 
 if (elements.sandstone) {
   if (!elements.sandstone.reactions) elements.sandstone.reactions = {};
@@ -47,11 +57,12 @@ if (elements.sandstone) {
 elements.clay_soil.stateHigh = ["molten_brick"]
 elements.clay_soil.tempHigh = 1540
 elements.magma.stateLow = [
-  ...Array(60).fill("rock"),
-  ...Array(60).fill("basalt"),
-  ...Array(6).fill("chromite"),
-  ...Array(2).fill("fluorite"),
-  "beryl"
+  ...Array(120).fill("rock"),
+  ...Array(120).fill("basalt"),
+  ...Array(12).fill("chromite"),
+  ...Array(4).fill("fluorite"),
+  "beryl", "beryl",
+  "dumortierite"
 ];
  
 var acidProof = [
@@ -228,6 +239,7 @@ elements.amethyst = {
   tempHigh: 450,
   hardness: 0.7,
   stateHigh: ["citrine"],
+  stateHighColor: ["#f39b49", "#ffc061", "#ffd16e", "#fff4b4"],
   breakInto: ["sand"],
   reactions: {
     "light": {elem1: "quartz", chance: 0.001},
@@ -235,7 +247,7 @@ elements.amethyst = {
 };
 
 elements.citrine = {
-  color: ["#cf820e", "#ffb14a", "#eccb34", "#fffbc5"],
+  color: ["#eeb844", "#f8cf77", "#f7df77", "#fffbc6"],
   behavior: behaviors.POWDER,
   category: "powders",
   state: "solid",
@@ -244,6 +256,20 @@ elements.citrine = {
   hardness: 0.7,
   stateHigh: ["molten_glass"],
   breakInto: ["sand"],
+};
+
+elements.rose_quartz = {
+  color: ["#ff7996", "#fa8aab", "#ffafdb", "#ffb9d4"],
+  behavior: behaviors.POWDER,
+  category: "powders",
+  state: "solid",
+  density: 2650,
+  tempHigh: 1700,
+  stateHigh: ["molten_glass"],
+  breakInto: ["sand"],
+  reactions: {
+    "light": { elem1:"quartz", chance:0.005 },
+  },
 };
 
 elements.alumina = {
@@ -257,7 +283,7 @@ elements.alumina = {
     reactions: {
        "fluorite": { elem1:"topaz", elem2:null, chance:0.005, tempMin:600, tempMax:1000},
   },
-}
+};
  
 elements.beryllia = {
   color: ["#f4f4f0", "#e8e8e2", "#fafaf7"],
@@ -425,7 +451,7 @@ elements.fluorite = {
   hardness: 0.4,
   stateHigh: "molten_slag",
   reactions: {
-    rock:      { elem1:"topaz", elem2:"topaz", chance:0.0005, tempMin:500, tempMax:900 },
+    rock:      { elem1:"topaz", chance:0.0005, tempMin:500, tempMax:900 },
     porcelain: { elem1:"topaz", elem2:null,    chance:0.005, tempMin:600, tempMax:1000 },
     porcelain_shard: { elem1:"topaz", elem2:null,    chance:0.005, tempMin:600, tempMax:1000 },
     acid: { elem1:"acid_gas" },
@@ -460,6 +486,22 @@ elements.pyrolusite = {
   reactions: {
         "beryl": {elem1:"morganite", chance:"0.001", tempMin:300, tempMax:530 },
   }
+};
+
+elements.dumortierite = {
+  color: ["#3b4f9e", "#29387a", "#8693cf", "#5369b3"],
+  behavior: behaviors.POWDER,
+  category: "land",
+  state: "solid",
+  density: 2350, //
+  hardness: 0.75,
+  tempHigh: 1310,
+  stateHigh: "porcelain_shard", 
+  breakInto: ["alumina", "sand"],
+  reactions: {
+    "rock":   { elem1:"rose_quartz", chance:0.00005, tempMin:700, tempMax:800 },
+    "quartz": { elem2:"rose_quartz", chance:0.002, tempMin:400, tempMax:800 },
+  },
 };
 
 elements.copper_coin={
