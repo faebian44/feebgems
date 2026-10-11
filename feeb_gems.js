@@ -29,9 +29,15 @@ elements.radiation.reactions.beryl = {elem1:"heliodor", chance:"0.01"};
 
 for (var key in elements) {
   var r = elements[key].reactions;
-  if (r && r.limestone && r.limestone.elem2 === "wet_sand") delete r.limestone;
-}
+  if (!r) continue;
+  ["limestone", "tuff"].forEach(function(t) {
+    if (r[t] && r[t].elem2 === "wet_sand") delete r[t];
+  });
+} // Sorry
 elements.basalt.reactions.water = {elem2: [...Array(28).fill("quartz"), ...Array(4).fill("amethyst"), ...Array(4).fill("pyrolusite"), "citrine"], chance: 0.0002, tempMin: 55, tempMax: 100};
+elements.water.reactions.basalt = { elem1:"chalcedony", chance:0.0003, tempMin:35, tempMax:55 };
+elements.tuff.reactions.water = { elem2:"borax", chance:0.0003, tempMin:55, tempMax:100 };
+elements.clay_soil.reactions.borax = { elem1:"dumortierite", elem2:null, chance:0.001, tempMin:400, tempMax:740 };
 
 elements.molten_thermite.burnInto = ["molten_iron","molten_alumina"]
  
@@ -48,6 +54,7 @@ elements.clay_shard.reactions.water = { elem1:"clay_soil", chance:0.0002 };
 elements.clay_shard.reactions.molten_slag = {elem1:"molten_slag"} 
 if (!elements.baked_clay.reactions) elements.baked_clay.reactions = {};
 elements.baked_clay.reactions.water = { elem1:"clay_shard", elem2:"steam", chance:0.6, tempMin:300 };
+elements.magma.reactions.water = { elem1:"molten_tuff", chance:0.8 };
 
 if (elements.sandstone) {
   if (!elements.sandstone.reactions) elements.sandstone.reactions = {};
@@ -57,12 +64,11 @@ if (elements.sandstone) {
 elements.clay_soil.stateHigh = ["molten_brick"]
 elements.clay_soil.tempHigh = 1540
 elements.magma.stateLow = [
-  ...Array(120).fill("rock"),
-  ...Array(120).fill("basalt"),
-  ...Array(12).fill("chromite"),
-  ...Array(4).fill("fluorite"),
-  "beryl", "beryl",
-  "dumortierite"
+  ...Array(60).fill("rock"),
+  ...Array(60).fill("basalt"),
+  ...Array(8).fill("chromite"),
+  ...Array(2).fill("fluorite"),
+  "beryl",
 ];
  
 var acidProof = [
@@ -265,11 +271,86 @@ elements.rose_quartz = {
   state: "solid",
   density: 2650,
   tempHigh: 1700,
+  hardness: 0.7,
   stateHigh: ["molten_glass"],
   breakInto: ["sand"],
   reactions: {
     "light": { elem1:"quartz", chance:0.005 },
   },
+};
+
+elements.chalcedony = {
+  color: ["#c9cedc", "#b4cbe0", "#dde6ea",],
+  behavior: behaviors.POWDER,
+  category: "powders",
+  state: "solid",
+  density: 2610,
+  tempHigh: 1700,
+  hardness: 0.7,
+  stateHigh: "molten_glass",
+  breakInto: ["sand", "quartz"],
+  reactions: {
+    "rust": { elem1:"carnelian", chance:0.001 },
+    "mud" : { elem1:"jasper", chance:0.0005 },
+    "basalt": { elem1:[...Array(6).fill("jasper"), "carnelian"], chance:0.00005 },
+    "quartz": { elem1:"agate", chance:0.0001 },
+  }
+};
+
+elements.jasper = {
+  color: ["#d14c2b", "#ec8353", "#91aaa6", "#699978"],
+  behavior: behaviors.POWDER,
+  category: "powders",
+  state: "solid",
+  density: 2710,
+  tempHigh: 1700,
+  hardness: 0.7,
+  stateHigh: "molten_glass",
+  breakInto: ["sand", "quartz"],
+};
+
+elements.carnelian = {
+  color: ["#dd7e55", "#d45333", "#aa4926", "#e94f29"],
+  behavior: behaviors.POWDER,
+  category: "powders",
+  state: "solid",
+  density: 2710,
+  tempHigh: 1700,
+  hardness: 0.7,
+  stateHigh: "molten_glass",
+  breakInto: ["sand", "quartz"],
+};
+
+elements.agate = {
+  color: ["#b98a6a", "#f5dec4", "#8c4c3c", "#b4dff0"],
+  colorPattern: [
+    "aabbccwwccbb",
+    "abbccwwccbba",
+    "bbccwwccbbaa",
+    "bccwwccbbaab",
+    "ccwwccbbaabb",
+    "cwwccbbaabbc",
+    "cwwccbbaabbc",
+    "ccwwccbbaabb",
+    "bccwwccbbaab",
+    "bbccwwccbbaa",
+    "abbccwwccbba",
+    "aabbccwwccbb",
+  ],
+  colorKey: {
+    "a": "#b98a6a",
+    "b": "#f5dec4",
+    "c": "#8c4c3c",
+    "w": "#b4dff0",
+  },
+  behavior: behaviors.POWDER,
+  category: "powders",
+  state: "solid",
+  density: 2710,
+  tempHigh: 1700,
+  hardness: 0.7,
+  stateHigh: "molten_glass",
+  breakInto: ["sand", "sand", "quartz", "chalcedony"],
 };
 
 elements.alumina = {
@@ -469,6 +550,9 @@ elements.quartz = {
   breakInto: "sand",
   reactions: {
     "radiation": {elem1:"amethyst", chance:0.008},
+    "rust": {elem1: ["amethyst",  "amethyst",  "amethyst",  "citrine"], chance: 0.0001, tempMin: 200},
+    "mud": {elem1: ["amethyst",  "amethyst",  "amethyst",  "citrine"], chance: 0.0001, tempMin: 200},
+    "iron": {elem1: "amethyst", chance: 0.00005, tempMin: 200},
   },
 }
 
