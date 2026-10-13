@@ -293,7 +293,7 @@ elements.chalcedony = {
     "rust": { elem1:"carnelian", chance:0.001 },
     "mud" : { elem1:"jasper", chance:0.0005 },
     "basalt": { elem1:[...Array(6).fill("jasper"), "carnelian"], chance:0.00005 },
-    "quartz": { elem1:"agate", chance:0.0001 },
+    "quartz": { elem1:[...Array(14).fill("agate"), "onyx"], chance:0.0003, tempMin: "25" },
   }
 };
 
@@ -322,26 +322,62 @@ elements.carnelian = {
 };
 
 elements.agate = {
-  color: ["#b98a6a", "#f5dec4", "#8c4c3c", "#b4dff0"],
+  color: ["#c46e36", "#f5dec4", "#8c4c3c", "#81312e", "#8ab3d4"],
   colorPattern: [
-    "aabbccwwccbb",
-    "abbccwwccbba",
-    "bbccwwccbbaa",
-    "bccwwccbbaab",
-    "ccwwccbbaabb",
-    "cwwccbbaabbc",
-    "cwwccbbaabbc",
-    "ccwwccbbaabb",
-    "bccwwccbbaab",
-    "bbccwwccbbaa",
-    "abbccwwccbba",
-    "aabbccwwccbb",
+    "aabbcdwwdcbb",
+    "abbcdwwdcbba",
+    "bbcdwwdcbbaa",
+    "bcdwwdcbbaab",
+    "cdwwdcbbaabb",
+    "dwwdcbbaabbc",
+    "dwwdcbbaabbc",
+    "cdwwdcbbaabb",
+    "bcdwwdcbbaab",
+    "bbcdwwdcbbaa",
+    "abbcdwwdcbba",
+    "aabbcdwwdcbb",
   ],
   colorKey: {
-    "a": "#b98a6a",
+    "a": "#c46e36",
     "b": "#f5dec4",
     "c": "#8c4c3c",
-    "w": "#b4dff0",
+    "d": "#81312e",
+    "w": "#8ab3d4",
+  },
+  behavior: behaviors.POWDER,
+  category: "powders",
+  state: "solid",
+  density: 2710,
+  tempHigh: 1700,
+  hardness: 0.7,
+  stateHigh: "molten_glass",
+  breakInto: ["sand", "sand", "quartz", "chalcedony"],
+  reactions:
+  {
+    "sugar_water": {elem1: "onyx", tempMin: 50, chance:0.001}
+  }
+};
+
+elements.onyx = {
+  color: ["#141414", "#2e2e2e", "#c7c7c7", "#eeeeee"],
+  colorPattern: [
+    "aabbccwwccbb",
+    "baabbccwwccb",
+    "bbaabbccwwcc",
+    "cbbaabbccwwc",
+    "ccbbaabbccww",
+    "wccbbaabbccw",
+    "wwccbbaabbcc",
+    "cwwccbbaabbc",
+    "ccwwccbbaabb",
+    "bbccwwccbbaa",
+    "abbccwwccbba",
+  ],
+  colorKey: {
+    "a": "#141414",
+    "b": "#2e2e2e",
+    "c": "#c7c7c7",
+    "w": "#eeeeee",
   },
   behavior: behaviors.POWDER,
   category: "powders",
